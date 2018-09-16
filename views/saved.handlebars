@@ -1,0 +1,10 @@
+<ul>
+    {{#each SavedArticles}}
+    <li>
+        <p href="{{this.url}}">{{this.headline}}</p>
+        <p>{{this.summary}}</p>
+        <button data-id="{{this.id}}" class="delArticle">Delete</button>
+        <button data-id="{{this.id}}" class="addNote">Add a Note</button>
+    </li>
+    {{/each}}
+</ul>

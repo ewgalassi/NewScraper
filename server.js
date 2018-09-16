@@ -20,8 +20,6 @@ db.once("open", function () {
     console.log("Connected")
 });
 
-var articleSchema = mongoose.Schema;
-
 request("https://newsapi.org/v2/top-headlines?" +
     "country=us&" +
     "apiKey=585650be8ce14a0b99a8026c4ff538f2", function (error, response, body) {
