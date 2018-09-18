@@ -1,10 +1,16 @@
+<h1>Your Saved Articles</h1>
+<a href="/index">Back to unsaved articles</a>
 <ul>
     {{#each Article}}
+    {{#if saved}}
     <li>
         <a href="{{this.url}}">{{this.headline}}</a>
         <p>{{this.summary}}</p>
-        <button data-id="{{this.id}}" class="delArticle">Delete</button>
+        <form action="/saved" method="put">
+            <button type="submit" data-id="{{this.id}}" class="unsaveArticle">Delete Article</button>
+        </form>
         <button data-id="{{this.id}}" class="addNote">Add a Note</button>
     </li>
+    {{/if}}
     {{/each}}
 </ul>

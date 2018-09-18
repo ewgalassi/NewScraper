@@ -53,19 +53,35 @@ router.get("/index", function (req, res) {
 });
 
 router.get("/saved", function (req, res) {
-    Article.find({ saved: true }, function (dbArticle) {
-        res.json(dbArticle);
+    Article.find({ saved: true }, function (err, Article) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            res.render("saved", { Article: Article });
+        }
     });
 });
 
-router.get("/api/articles", function (req, res) {
-    Article.find({}, function (dbArticle) {
-        res.json({
-            headline: dbArticle.headline,
-            summary: dbArticle.summary,
-            saved: dbArticle.saved,
-            url: dbArticle.url
-        });
+router.put("api/index/:id", function (req, res) {
+    Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } }, function (err, Article) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            res.json({ Article: Article });
+        }
+    });
+});
+
+router.put("api/saved/:id", function (req, res) {
+    Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: false } }, function (err, Article) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            res.json({ Article: Article });
+        }
     });
 });
 

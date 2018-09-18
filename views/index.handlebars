@@ -1,9 +1,15 @@
+<h1>Articles Scraped From The Onion</h1>
+<a href="/saved">See all saved articles</a>
 <ul>
     {{#each Article}}
+    {{#unless saved}}
     <li>
         <a href="{{this.url}}">{{this.headline}}</a>
         <p>{{this.summary}}</p>
-        <button data-id="{{this.id}}" class="saveArticle">Save Article</button>
+        <form action="/index" method="put">
+            <button type="submit" data-id="{{this.id}}" class="saveArticle">Save Article</button>
+        </form>
     </li>
+    {{/unless}}
     {{/each}}
 </ul>
