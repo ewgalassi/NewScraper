@@ -7,4 +7,5 @@ module.exports = function (mongoose) {
     });
 
     var Note = mongoose.model("Note", noteSchema);
+    return Note;
 };

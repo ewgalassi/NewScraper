@@ -20,14 +20,6 @@ db.once("open", function () {
     console.log("Connected")
 });
 
-request("https://newsapi.org/v2/top-headlines?" +
-    "country=us&" +
-    "apiKey=585650be8ce14a0b99a8026c4ff538f2", function (error, response, body) {
-        console.log("error:", error);
-        console.log("statusCode:", response && response.statusCode);
-        console.log("body:", body);
-    });
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

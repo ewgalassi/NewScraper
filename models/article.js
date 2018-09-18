@@ -5,9 +5,10 @@ module.exports = function (mongoose) {
         id: String,
         headline: String,
         summary: String,
+        saved: Boolean,
         url: String
     });
 
     var Article = mongoose.model("Article", articleSchema);
-    var SavedArticle = mongoose.model("SavedArticle", articleSchema);
+    return Article;
 };

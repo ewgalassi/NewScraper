@@ -1,9 +1,11 @@
 <ul>
     {{#each Articles}}
+    {{#if this.saved = false}}
     <li>
         <p href="{{this.url}}">{{this.headline}}</p>
         <p>{{this.summary}}</p>
         <button data-id="{{this.id}}" class="saveArticle">Save Article</button>
     </li>
+    {{/if}}
     {{/each}}
 </ul>
