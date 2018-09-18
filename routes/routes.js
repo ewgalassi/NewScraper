@@ -27,7 +27,7 @@ router.get("/", function (req, res) {
 
             var headline = $(element).children().children("h1").text();
             var summary = $(element).children().children().children("p").text();
-            var url = $(element).children().children("h1").attr("href");
+            var url = $(element).children().children().children("a").attr("href");
 
             var article = new Article({
                 headline: headline,
