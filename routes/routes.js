@@ -63,26 +63,52 @@ router.get("/saved", function (req, res) {
     });
 });
 
-router.put("api/index/:id", function (req, res) {
-    Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } }, function (err, Article) {
+router.put("/api/index/:id", function (req, res) {
+    var thisId = req.params.id;
+    Article.findOneAndUpdate({ _id: thisId }, { $set: { saved: true } }, function (err, Article) {
         if (err) {
             console.log(err);
             res.status(500).send(err);
         } else {
-            res.json({ Article: Article });
+            res.json(Article);
         }
     });
 });
 
-router.put("api/saved/:id", function (req, res) {
-    Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: false } }, function (err, Article) {
+router.put("/api/saved/:id", function (req, res) {
+    var thisId = req.params.id;
+    Article.findOneAndUpdate({ _id: thisId }, { $set: { saved: false } }, function (err, Article) {
         if (err) {
             console.log(err);
             res.status(500).send(err);
         } else {
-            res.json({ Article: Article });
+            res.json(Article);
         }
     });
+});
+
+router.get("/saved/:id", function (req, res) {
+    Article.findOne({ _id: req.params.id })
+        .populate("notes")
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+router.post("/saved/:id", function (req, res) {
+    Note.create(req.body)
+        .then(function (dbNote) {
+            return Article.findOneAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true });
+        })
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
 });
 
 module.exports = router;

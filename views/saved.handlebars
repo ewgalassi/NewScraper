@@ -1,16 +1,28 @@
-<h1>Your Saved Articles</h1>
-<a href="/index">Back to unsaved articles</a>
-<ul>
+<h2>Your Saved Articles</h2>
+<a class="page-link" href="/index">Back to unsaved articles</a>
+<ul class="col s10">
     {{#each Article}}
-    {{#if saved}}
+    {{#if this.saved}}
     <li>
-        <a href="{{this.url}}">{{this.headline}}</a>
+        <a class="title" href="{{this.url}}">{{this.headline}}</a>
         <p>{{this.summary}}</p>
-        <form action="/saved" method="put">
-            <button type="submit" data-id="{{this.id}}" class="unsaveArticle">Delete Article</button>
-        </form>
-        <button data-id="{{this.id}}" class="addNote">Add a Note</button>
+        <button data-id="{{this.id}}" class="unsaveArticle">Delete Article</button>
+        <button data-id="{{this.id}}" class="addNote" href="#modal{{this.id}}">Add a Note</button>
+        <div id="modal{{this.id}}" class="modal">
+            <div class="modal-content">
+                <a class="closeNote">X</a>
+                <div id="notes">Older notes: <br></div>
+                <br>
+                <h4>Add a note</h4>
+                <form>
+                    <input id="noteInput" name="body">
+                    <input data-id="{{this.id}}" class="saveNote" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
     </li>
+    <hr>
+    <br>
     {{/if}}
     {{/each}}
 </ul>
